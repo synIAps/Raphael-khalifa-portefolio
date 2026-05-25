@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raphaël Khalifa — synIAps | Agence IA Marseille</title>
+<meta name="description" content="Raphaël Khalifa, Fondateur de synIAps — Agence IA à Marseille. Automatisation Agentique, RAG, Chatbots & Développement IA.">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #ff2d2d #0a0a0a; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: #ff2d2d; text-decoration: none; transition: all 0.3s; }
+a:hover { color: #ff6b6b; text-shadow: 0 0 8px #ff2d2d; }
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #ff2d2d; border-radius: 3px; }
+
+/* ============================================
+   PARTICLES CANVAS
+   ============================================ */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,45,45,0.15);
+  padding: 0 2rem;
+  transition: all 0.3s;
+}
+.nav.scrolled { background: rgba(10,10,10,0.95); box-shadow: 0 2px 20px rgba(255,45,45,0.1); }
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.nav-logo span { color: #ff2d2d; }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a {
+  color: #b0b0b0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: #ff2d2d;
+  box-shadow: 0 0 8px #ff2d2d;
+  transition: width 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: #fff; }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.nav-toggle span {
+  display: block; width: 24px; height: 2px;
+  background: #fff; margin: 5px 0; transition: all 0.3s;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 2rem;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-title span { color: #ff2d2d; }
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff2d2d, #ff6b6b);
+  margin: 0.8rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(255,45,45,0.5);
+}
+.section-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   ANIMATED SECTIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 2rem 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,45,45,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: heroPulse 6s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-tag {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid rgba(255,45,45,0.4);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  color: #ff2d2d;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  background: rgba(255,45,45,0.05);
+  animation: fadeInDown 1s ease 0.2s both;
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 0.3rem;
+  animation: fadeInUp 1s ease 0.4s both;
+}
+.hero h1 .accent { color: #ff2d2d; text-shadow: 0 0 30px rgba(255,45,45,0.4); }
+.hero h2 {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: #888;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease 0.6s both;
+}
+.hero-quote {
+  font-style: italic;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 1s ease 0.8s both;
+}
+.hero-cta {
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 1s ease 1s both;
+}
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #ff2d2d, #cc0000);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255,45,45,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(255,45,45,0.5);
+  color: #fff;
+}
+.btn-outline {
+  background: transparent;
+  color: #ff2d2d;
+  border: 2px solid #ff2d2d;
+}
+.btn-outline:hover {
+  background: rgba(255,45,45,0.1);
+  transform: translateY(-2px);
+  color: #ff2d2d;
+}
+
+/* Stats counter */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+  animation: fadeInUp 1s ease 1.2s both;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ff2d2d;
+  display: block;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   PARCOURS / TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px; top: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(180deg, #ff2d2d, #333, #ff2d2d);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,45,45,0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+.timeline-item:hover {
+  border-color: rgba(255,45,45,0.3);
+  box-shadow: 0 4px 20px rgba(255,45,45,0.1);
+  transform: translateX(4px);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -33px; top: 1.8rem;
+  width: 12px; height: 12px;
+  background: #ff2d2d;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ff2d2d;
+}
+.timeline-date {
+  font-size: 0.8rem;
+  color: #ff2d2d;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+.timeline-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+.timeline-company {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin-bottom: 0.5rem;
+}
+.timeline-desc {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.5;
+}
+.timeline-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(255,45,45,0.1);
+  border: 1px solid rgba(255,45,45,0.2);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+  margin-right: 0.3rem;
+}
+
+/* ============================================
+   SERVICES
+   ============================================ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.service-card {
+  padding: 2rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,45,45,0.1);
+  border-radius: 16px;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, #ff2d2d, transparent);
+}
+.service-card:hover {
+  border-color: rgba(255,45,45,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(255,45,45,0.1);
+}
+.service-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.service-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.service-metier {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+.service-tech {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 0.6rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  border-left: 2px solid #ff2d2d;
+}
+.service-tech strong { color: #ff6b6b; font-weight: 600; }
+
+/* ============================================
+   PROJETS
+   ============================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,45,45,0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.project-card:hover {
+  border-color: rgba(255,45,45,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(255,45,45,0.08);
+}
+.project-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255,45,45,0.1);
+  position: relative;
+}
+.project-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, #ff2d2d, transparent);
+}
+.project-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+.project-client {
+  font-size: 0.8rem;
+  color: #ff6b6b;
+}
+.project-body { padding: 1.5rem; }
+.project-view { margin-bottom: 1rem; }
+.project-view-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.project-view-label.tech { color: #4ecdc4; }
+.project-view-label.metier { color: #ff6b6b; }
+.project-view p {
+  font-size: 0.88rem;
+  color: #b0b0b0;
+  line-height: 1.5;
+}
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.project-stack span {
+  padding: 0.2rem 0.5rem;
+  background: rgba(78,205,196,0.1);
+  border: 1px solid rgba(78,205,196,0.2);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: #4ecdc4;
+}
+
+/* ============================================
+   PRODUITS PHARES
+   ============================================ */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.product-card {
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255,45,45,0.05), rgba(255,45,45,0.02));
+  border: 1px solid rgba(255,45,45,0.2);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(255,45,45,0.15);
+}
+.product-badge {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  background: rgba(255,45,45,0.2);
+  color: #ff2d2d;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+}
+.product-card h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.product-card p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+.product-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.product-stack span {
+  padding: 0.2rem 0.5rem;
+  background: rgba(255,45,45,0.08);
+  border: 1px solid rgba(255,45,45,0.15);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: #ff6b6b;
+}
+
+/* ============================================
+   REPOS GITHUB
+   ============================================ */
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+.repo-card {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,45,45,0.08);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+.repo-card:hover {
+  border-color: rgba(255,45,45,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255,45,45,0.06);
+}
+.repo-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.repo-icon { color: #ff2d2d; }
+.repo-desc {
+  font-size: 0.82rem;
+  color: #999;
+  margin-bottom: 0.6rem;
+}
+.repo-langs { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.repo-langs span {
+  padding: 0.15rem 0.5rem;
+  background: rgba(255,45,45,0.08);
+  border: 1px solid rgba(255,45,45,0.15);
+  border-radius: 3px;
+  font-size: 0.68rem;
+  color: #ff6b6b;
+}
+
+/* ============================================
+   CLIENTS
+   ============================================ */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+}
+.client-card {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,45,45,0.08);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.client-card:hover {
+  border-color: rgba(255,45,45,0.3);
+  transform: scale(1.03);
+}
+.client-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+.client-sector {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+/* ============================================
+   SECTEURS
+   ============================================ */
+.secteurs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.secteur-tag {
+  padding: 0.5rem 1.2rem;
+  background: rgba(255,45,45,0.05);
+  border: 1px solid rgba(255,45,45,0.15);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: #ccc;
+  transition: all 0.3s;
+}
+.secteur-tag:hover {
+  border-color: #ff2d2d;
+  color: #ff2d2d;
+  box-shadow: 0 0 15px rgba(255,45,45,0.15);
+}
+
+/* ============================================
+   CONTACT / FOOTER
+   ============================================ */
+.contact {
+  text-align: center;
+  padding: 80px 2rem;
+}
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: rgba(255,45,45,0.03);
+  border: 1px solid rgba(255,45,45,0.15);
+  border-radius: 20px;
+}
+.contact-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.contact-card p {
+  color: #aaa;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+.contact-link:hover {
+  color: #ff2d2d;
+  background: rgba(255,45,45,0.05);
+}
+.contact-link .cl-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+/* Footer */
+.footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,45,45,0.1);
+  position: relative;
+  z-index: 1;
+}
+.footer p {
+  color: #555;
+  font-size: 0.8rem;
+}
+.footer span { color: #ff2d2d; }
+
+/* ============================================
+   GLITCH TEXT EFFECT
+   ============================================ */
+.glitch {
+  position: relative;
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff2d2d;
+  clip-path: inset(40% 0 61% 0);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 #00f0ff;
+  clip-path: inset(0 0 40% 0);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+@keyframes glitch-1 {
+  0% { clip-path: inset(25% 0 56% 0); }
+  10% { clip-path: inset(15% 0 65% 0); }
+  30% { clip-path: inset(50% 0 30% 0); }
+  50% { clip-path: inset(60% 0 10% 0); }
+  70% { clip-path: inset(8% 0 78% 0); }
+  90% { clip-path: inset(42% 0 38% 0); }
+  100% { clip-path: inset(70% 0 10% 0); }
+}
+@keyframes glitch-2 {
+  0% { clip-path: inset(55% 0 15% 0); }
+  15% { clip-path: inset(10% 0 75% 0); }
+  35% { clip-path: inset(70% 0 5% 0); }
+  55% { clip-path: inset(25% 0 55% 0); }
+  75% { clip-path: inset(45% 0 35% 0); }
+  95% { clip-path: inset(5% 0 85% 0); }
+  100% { clip-path: inset(35% 0 45% 0); }
+}
+
+/* ============================================
+   GRID BG
+   ============================================ */
+.grid-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    linear-gradient(rgba(255,45,45,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,45,45,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(10,10,10,0.98);
+    padding: 1rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255,45,45,0.1);
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .hero-stats { flex-direction: column; gap: 1rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .repos-grid { grid-template-columns: 1fr; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-title { font-size: 2rem; }
+  section { padding: 60px 1rem; }
+  .timeline { padding-left: 30px; }
+  .timeline::before { left: 10px; }
+  .timeline-item::before { left: -28px; width: 10px; height: 10px; }
+}
+
+@media (max-width: 480px) {
+  .clients-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+}
+
+/* ============================================
+   SCANLINE OVERLAY (cyberpunk)
+   ============================================ */
+.scanline {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  opacity: 0.5;
+}
+
+/* ============================================
+   NEON DIVIDER
+   ============================================ */
+.neon-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff2d2d, transparent);
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(255,45,45,0.3);
+}
+</style>
+</head>
+<body>
+
+<!-- Scanline overlay -->
+<div class="scanline"></div>
+
+<!-- Particles -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">syn<span>IA</span>ps</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#produits">Produits</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#repos">Repos</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Agence IA · Marseille</div>
+    <h1>Raphaël <span class="accent glitch" data-text="Khalifa">Khalifa</span></h1>
+    <h2>Fondateur synIAps — Expert IA & Automatisation Agentique</h2>
+    <p class="hero-quote">&laquo; L'IA doit travailler pour vous. Pas l'inverse. &raquo;</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">Découvrir les services</a>
+      <a href="#contact" class="btn btn-outline">Me contacter</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number" data-target="20">0</span>
+        <span class="stat-label">Clients actifs</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="200">0</span>
+        <span class="stat-label">Automatisations</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="20">0</span>
+        <span class="stat-label">Apps déployées</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="13">0</span>
+        <span class="stat-label">Repos GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PARCOURS
+     ============================================ -->
+<section id="parcours">
+  <div class="container">
+    <h2 class="section-title reveal">Mon <span>Parcours</span></h2>
+    <p class="section-subtitle reveal">
+      D'ingénieur informatique à fondateur d'agence IA — 20 ans de tech au service de l'innovation.
+    </p>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">Août 2025 — Présent</div>
+        <div class="timeline-title">Fondateur & CEO</div>
+        <div class="timeline-company">synIAps — Agence IA, Marseille</div>
+        <div class="timeline-desc">
+          Création d'une agence IA spécialisée en automatisation agentique, développement IA, génération de contenu et infrastructure IA. 20+ clients, 200+ automatisations déployées.
+        </div>
+        <span class="timeline-tag">IA générative</span>
+        <span class="timeline-tag">n8n</span>
+        <span class="timeline-tag">RAG</span>
+        <span class="timeline-tag">Claude</span>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2019 — 2025 (6 ans)</div>
+        <div class="timeline-title">Business Director — Transformation Digitale & IA</div>
+        <div class="timeline-company">We+, Aix-en-Provence</div>
+        <div class="timeline-desc">
+          Pilotage d'une BU multi-expertises (Data, IA, Cloud, Cybersécurité) pour grands comptes. Accompagnement DSI sur industrialisation IA : ML, NLP, IA générative, RAG. Recrutement et structuration d'équipes pluridisciplinaires.
+        </div>
+        <span class="timeline-tag">Direction</span>
+        <span class="timeline-tag">Data & IA</span>
+        <span class="timeline-tag">Grands comptes</span>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2018 — 2019</div>
+        <div class="timeline-title">Business Manager</div>
+        <div class="timeline-company">We+, Aix-en-Provence</div>
+        <div class="timeline-desc">
+          Management d'équipes et développement commercial dans les services IT et conseil digital.
+        </div>
+        <span class="timeline-tag">Management</span>
+        <span class="timeline-tag">Commercial</span>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2014 — 2018</div>
+        <div class="timeline-title">Ingénieur Commercial IT</div>
+        <div class="timeline-company">Groupe RDI (2014-16) · SCALA (2016-17) · dbSQWare (2017-18)</div>
+        <div class="timeline-desc">
+          Vente de solutions IT et services informatiques auprès d'entreprises. Construction d'un réseau solide dans l'écosystème tech français.
+        </div>
+        <span class="timeline-tag">Vente IT</span>
+        <span class="timeline-tag">Solutions Enterprise</span>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2005 — 2008</div>
+        <div class="timeline-title">Ingénieur Informatique</div>
+        <div class="timeline-company">Institut G4</div>
+        <div class="timeline-desc">
+          Formation d'ingénieur en informatique.
+        </div>
+        <span class="timeline-tag">Diplôme Ingénieur</span>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2003 — 2005</div>
+        <div class="timeline-title">DUT GEII — Mention B</div>
+        <div class="timeline-company">IUT Aix-en-Provence</div>
+        <div class="timeline-desc">
+          Génie Électrique et Informatique Industrielle. Mention Bien.
+        </div>
+        <span class="timeline-tag">DUT GEII</span>
+        <span class="timeline-tag">Mention B</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     SERVICES
+     ============================================ -->
+<section id="services">
+  <div class="container">
+    <h2 class="section-title reveal">Nos <span>Services</span></h2>
+    <p class="section-subtitle reveal">
+      4 piliers de services IA pour transformer votre entreprise.
+    </p>
+    <div class="services-grid">
+
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-icon">&#x1F916;</span>
+        <h3>Automatisation Agentique</h3>
+        <p class="service-metier">L'IA qualifie vos leads et gère vos processus 24h/24.</p>
+        <div class="service-tech">
+          <strong>Tech :</strong> Orchestration n8n/Make/Zapier + agents IA conversationnels (OpenAI, Anthropic, Claude) + 500+ connecteurs
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-icon">&#x1F4BB;</span>
+        <h3>Développement IA</h3>
+        <p class="service-metier">Des applications sur mesure, accélérées par l'IA.</p>
+        <div class="service-tech">
+          <strong>Tech :</strong> Next.js 15/16 + TypeScript strict + Supabase (Postgres + RLS) + Tailwind + shadcn/ui + Vercel + Capacitor mobile
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-icon">&#x1F3A8;</span>
+        <h3>Génération de Contenu IA</h3>
+        <p class="service-metier">Vos créatifs IA publiés automatiquement.</p>
+        <div class="service-tech">
+          <strong>Tech :</strong> Veo3, Sora, Midjourney, ComfyUI, Wan2GP — pipeline génération + publication multi-plateformes
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-4">
+        <span class="service-icon">&#x2699;&#xFE0F;</span>
+        <h3>Infrastructure IA</h3>
+        <p class="service-metier">Votre savoir-faire accessible 24/7 via chatbot IA.</p>
+        <div class="service-tech">
+          <strong>Tech :</strong> RAG sur base documentaire interne, déploiement cloud souverain, fine-tuning OpenAI/Anthropic
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-5">
+        <span class="service-icon">&#x1F393;</span>
+        <h3>Formations & Consulting IA</h3>
+        <p class="service-metier">Votre équipe autonome avec l'IA.</p>
+        <div class="service-tech">
+          <strong>Tech :</strong> Parcours N8N workflows + Claude Code prompting, skills Claude Code / Antigravity · Roadmap IA, GEO, stratégie transformation digitale
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     PRODUITS PHARES
+     ============================================ -->
+<section id="produits">
+  <div class="container">
+    <h2 class="section-title reveal">Produits <span>Phares</span></h2>
+    <p class="section-subtitle reveal">
+      Les produits synIAps conçus pour révolutionner la création et la communication.
+    </p>
+    <div class="products-grid">
+
+      <div class="product-card reveal reveal-delay-1">
+        <span class="product-badge">&#x1F512; Bêta Privée</span>
+        <h3>SyniArt</h3>
+        <p>Plateforme SaaS de création de contenu IA — vidéos, images, publication automatique sur les réseaux sociaux.</p>
+        <div class="product-stack">
+          <span>Vite</span>
+          <span>React</span>
+          <span>ffmpeg WASM</span>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <span class="product-badge">&#x1F6A7; En Conception</span>
+        <h3>Syniaps Voice</h3>
+        <p>Standard téléphonique IA self-serve pour restaurants — onboarding en moins de 7 minutes.</p>
+        <div class="product-stack">
+          <span>Turborepo</span>
+          <span>Twilio</span>
+          <span>xAI Grok</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     PROJETS
+     ============================================ -->
+<section id="projets">
+  <div class="container">
+    <h2 class="section-title reveal">Projets <span>Phares</span></h2>
+    <p class="section-subtitle reveal">
+      Double vue : technique et métier pour chaque projet réalisé.
+    </p>
+    <div class="projects-grid">
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-header">
+          <div class="project-name">Protevia ERP</div>
+          <div class="project-client">Protevia Systèmes — Sécurité Électronique</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>ERP complet 14 modules pour piloter toute l'entreprise, de la gestion commerciale au SAV.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Architecture multi-agences, base de données relationnelle, interfaces modulaires.</p>
+            <div class="project-stack">
+              <span>Next.js</span>
+              <span>TypeScript</span>
+              <span>Supabase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-header">
+          <div class="project-name">Flottadomi</div>
+          <div class="project-client">Aidadomi — Aide à domicile</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Gestion de flotte, suivi carburant, maintenance préventive — fini les tableaux Excel.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Application web complète avec gestion des véhicules, tracking et alertes automatisées.</p>
+            <div class="project-stack">
+              <span>Next.js</span>
+              <span>Supabase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-header">
+          <div class="project-name">EasyDAU V2</div>
+          <div class="project-client">TheTaxCompany — Douanes & Transit</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Déclarations douanières export/import, conformités MFPE/MFPO automatisées.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Plateforme web avec workflows de validation, génération de documents et intégrations douanières.</p>
+            <div class="project-stack">
+              <span>Next.js</span>
+              <span>TypeScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-header">
+          <div class="project-name">Protevia Website</div>
+          <div class="project-client">Protevia Systèmes</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Site vitrine animé pour crédibiliser l'image de marque et présenter les services de sécurité électronique.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Site 4 pages avec animations GSAP avancées, design responsive et optimisation performance.</p>
+            <div class="project-stack">
+              <span>Next.js 16</span>
+              <span>GSAP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-header">
+          <div class="project-name">Prosp</div>
+          <div class="project-client">Outil interne synIAps</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Prospection B2B automatisée : enrichissement leads &#x2192; qualification &#x2192; sortie.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Pipeline d'enrichissement via FullEnrich, scraping Apify, données Pappers, traitement automatisé.</p>
+            <div class="project-stack">
+              <span>FullEnrich API</span>
+              <span>Apify</span>
+              <span>Pappers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-6">
+        <div class="project-header">
+          <div class="project-name">Syniaps Prospector</div>
+          <div class="project-client">Outil interne synIAps</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Votre avatar LinkedIn travaille 24h/24 — likes, commentaires et DM automatisés par IA.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>IA conversationnelle pour engagement LinkedIn automatisé avec personnalisation contextuelle.</p>
+            <div class="project-stack">
+              <span>IA conversationnelle</span>
+              <span>LinkedIn API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-header">
+          <div class="project-name">Qualiopi Syniaps</div>
+          <div class="project-client">Outil interne synIAps — Formation</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Pilotage des 22 indicateurs Qualiopi en un clic pour organisme de formation certifié RNQ.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Application web de suivi conformité avec dashboard et exports automatisés.</p>
+            <div class="project-stack">
+              <span>App Web</span>
+              <span>Dashboard</span>
+              <span>22 indicateurs RNQ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-header">
+          <div class="project-name">AutoWYYL</div>
+          <div class="project-client">R&D Personnel</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>R&D messaging automation — plateforme d'automatisation de messages sur Wyylde.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Automatisation browser avec Playwright, file de tâches BullMQ, traitement asynchrone.</p>
+            <div class="project-stack">
+              <span>Playwright</span>
+              <span>BullMQ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-header">
+          <div class="project-name">AutoDJ V2</div>
+          <div class="project-client">Outil synIAps</div>
+        </div>
+        <div class="project-body">
+          <div class="project-view">
+            <div class="project-view-label metier">&#x1F4BC; Vue Métier</div>
+            <p>Application DJ avec assistance IA pour les performances en live et la gestion de playlists.</p>
+          </div>
+          <div class="project-view">
+            <div class="project-view-label tech">&#x1F527; Vue Technique</div>
+            <p>Application mobile Android cross-platform avec interface temps réel.</p>
+            <div class="project-stack">
+              <span>Vite</span>
+              <span>Capacitor Android</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     REPOS GITHUB
+     ============================================ -->
+<section id="repos">
+  <div class="container">
+    <h2 class="section-title reveal">Repos <span>GitHub</span></h2>
+    <p class="section-subtitle reveal">
+      L'ensemble des projets open source et code source de synIAps.
+    </p>
+    <div class="repos-grid">
+
+      <div class="repo-card reveal reveal-delay-1">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> syniaps-vault</div>
+        <div class="repo-desc">Wiki/vault Notion-like — base de connaissances synIAps.</div>
+        <div class="repo-langs"><span>Documentation</span><span>Knowledge</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-1">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> syniaps-ai-showcase</div>
+        <div class="repo-desc">Showcase IA synIAps — vitrine des capacités et cas d'usage IA.</div>
+        <div class="repo-langs"><span>IA</span><span>Showcase</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-2">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> protevia-erp</div>
+        <div class="repo-desc">ERP métier 14 modules pour Protevia Systèmes (sécurité électronique).</div>
+        <div class="repo-langs"><span>Next.js</span><span>TypeScript</span><span>Supabase</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-2">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Flotteaudo-Aidadomi</div>
+        <div class="repo-desc">Gestion de flotte automobile pour Aidadomi (aide à domicile).</div>
+        <div class="repo-langs"><span>Next.js</span><span>Supabase</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-3">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> easydauV2</div>
+        <div class="repo-desc">Plateforme de déclarations douanières pour TheTaxCompany.</div>
+        <div class="repo-langs"><span>Next.js</span><span>TypeScript</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-3">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Protevia-Website</div>
+        <div class="repo-desc">Site vitrine 4 pages animé pour Protevia Systèmes.</div>
+        <div class="repo-langs"><span>Next.js 16</span><span>GSAP</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-4">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Prosp</div>
+        <div class="repo-desc">Outil de prospection B2B semi-automatisé (FullEnrich, Apify, Pappers).</div>
+        <div class="repo-langs"><span>Node.js</span><span>APIs</span><span>Scraping</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-4">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Qualiopi-syniaps</div>
+        <div class="repo-desc">App de gestion d'organisme de formation Qualiopi — 22 indicateurs RNQ.</div>
+        <div class="repo-langs"><span>Web App</span><span>Conformité</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-5">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Syniart</div>
+        <div class="repo-desc">Plateforme SaaS de création de contenu IA (vidéos, images, publication auto).</div>
+        <div class="repo-langs"><span>Vite</span><span>React</span><span>ffmpeg WASM</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-5">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Site-syniaps</div>
+        <div class="repo-desc">Site vitrine syniaps.fr — présence web de l'agence IA.</div>
+        <div class="repo-langs"><span>Vite</span><span>React</span><span>shadcn/ui</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-6">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> autodj-V2</div>
+        <div class="repo-desc">Application DJ assistée IA — mobile Android.</div>
+        <div class="repo-langs"><span>Vite</span><span>Capacitor</span><span>Android</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-6">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> Autowyyl</div>
+        <div class="repo-desc">Automatisation de messages Wyylde — R&D messaging.</div>
+        <div class="repo-langs"><span>Playwright</span><span>BullMQ</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-6">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> wyylde-cli</div>
+        <div class="repo-desc">CLI Wyylde.com — outil en ligne de commande.</div>
+        <div class="repo-langs"><span>CLI</span><span>Node.js</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-6">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> agile-web-vision</div>
+        <div class="repo-desc">Projet web — vision agile et développement itératif.</div>
+        <div class="repo-langs"><span>Web</span><span>Agile</span></div>
+      </div>
+
+      <div class="repo-card reveal reveal-delay-6">
+        <div class="repo-name"><span class="repo-icon">&#x1F4C1;</span> septagon</div>
+        <div class="repo-desc">Projet expérimental septagon.</div>
+        <div class="repo-langs"><span>Experimental</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     CLIENTS
+     ============================================ -->
+<section id="clients">
+  <div class="container">
+    <h2 class="section-title reveal">Nos <span>Clients</span></h2>
+    <p class="section-subtitle reveal">
+      Ils nous font confiance pour leur transformation IA.
+    </p>
+    <div class="clients-grid">
+
+      <div class="client-card reveal reveal-delay-1">
+        <div class="client-name">TheTaxCompany</div>
+        <div class="client-sector">Douanes & Transit</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-2">
+        <div class="client-name">Protevia Systèmes</div>
+        <div class="client-sector">Sécurité Électronique</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-3">
+        <div class="client-name">DPANEO</div>
+        <div class="client-sector">Cycle comptable automatisé</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-4">
+        <div class="client-name">KBK Expert & Conseil</div>
+        <div class="client-sector">Expertise Comptable</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-5">
+        <div class="client-name">Aidadomi</div>
+        <div class="client-sector">Aide à Domicile</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-6">
+        <div class="client-name">Emblème Construction</div>
+        <div class="client-sector">BTP · Formation N8N</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-1">
+        <div class="client-name">Maison Rouvier</div>
+        <div class="client-sector">Client confiance</div>
+      </div>
+
+      <div class="client-card reveal reveal-delay-2">
+        <div class="client-name">Atelier Mistral</div>
+        <div class="client-sector">Client confiance</div>
+      </div>
+
+    </div>
+
+    <div class="secteurs-grid reveal">
+      <span class="secteur-tag">Douanes & Transit</span>
+      <span class="secteur-tag">Sécurité Électronique</span>
+      <span class="secteur-tag">Expertise Comptable</span>
+      <span class="secteur-tag">Aide à Domicile</span>
+      <span class="secteur-tag">BTP & Construction</span>
+      <span class="secteur-tag">Restauration</span>
+      <span class="secteur-tag">Formation Professionnelle</span>
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- ============================================
+     CONTACT
+     ============================================ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="section-title reveal">Me <span>Contacter</span></h2>
+    <p class="section-subtitle reveal">
+      Prêt à libérer votre charge mentale grâce à l'IA ? Parlons-en.
+    </p>
+    <div class="contact-card reveal">
+      <h3>Travaillons ensemble</h3>
+      <p>Réponse garantie sous 4h. Devis gratuit.</p>
+      <div class="contact-links">
+        <a href="mailto:raphael.khalifa@syniaps.fr" class="contact-link">
+          <span class="cl-icon">&#x2709;&#xFE0F;</span>
+          raphael.khalifa@syniaps.fr
+        </a>
+        <a href="https://syniaps.fr" target="_blank" class="contact-link">
+          <span class="cl-icon">&#x1F310;</span>
+          syniaps.fr
+        </a>
+        <a href="https://www.linkedin.com/in/raphaelkhalifa/" target="_blank" class="contact-link">
+          <span class="cl-icon">&#x1F4BC;</span>
+          LinkedIn — 7 474+ abonnés
+        </a>
+        <div class="contact-link">
+          <span class="cl-icon">&#x1F4CD;</span>
+          24 Traverse Capron, 13012 Marseille
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!---- Footer -->
+<footer class="footer">
+  <p>&copy; 2025 <span>synIAps</span> — SAS · SIRET 991 709 890 00016 · Tous droits réservés · Marseille, Provence-Alpes-Côte d'Azur</p>
+  <div style="margin-top:0.8rem;">
+    <span style="font-size:0.7rem;color:#555;">Version :</span>
+    <a href="#" style="font-size:0.7rem;padding:0.15rem 0.5rem;border:1px solid rgba(255,45,45,0.3);border-radius:4px;color:#ff6b6b;margin:0 0.2rem;background:rgba(255,45,45,0.15);">V1 — Général</a>
+    <a href="v2.html" style="font-size:0.7rem;padding:0.15rem 0.5rem;border:1px solid rgba(255,45,45,0.3);border-radius:4px;color:#ff6b6b;margin:0 0.2rem;">V2 — Ozyme</a>
+    <a href="v3.html" style="font-size:0.7rem;padding:0.15rem 0.5rem;border:1px solid rgba(255,45,45,0.3);border-radius:4px;color:#ff6b6b;margin:0 0.2rem;">V3 — Ozyme Orange/Bleu</a>
+  </div>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// ============================================
+// PARTICLES SYSTEM
+// ============================================
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let w, h, animId;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.red = Math.random() > 0.3;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.red
+        ? `rgba(255, 45, 45, ${this.opacity})`
+        : `rgba(255, 255, 255, ${this.opacity * 0.3})`;
+      ctx.fill();
+    }
+  }
+
+  const count = Math.min(80, Math.floor((w * h) / 15000));
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle());
+  }
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          const opacity = (1 - dist / 150) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(255, 45, 45, ${opacity})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    animId = requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ============================================
+// INTERSECTION OBSERVER (Scroll Reveal)
+// ============================================
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+})();
+
+// ============================================
+// NAVIGATION
+// ============================================
+(function() {
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  const navAs = links.querySelectorAll('a');
+
+  // Toggle mobile menu
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+
+  // Close mobile menu on link click
+  navAs.forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+    });
+  });
+
+  // Scroll: add class + active link
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    // Nav shadow
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+
+    // Active link
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 100;
+      if (window.scrollY >= top) {
+        current = sec.getAttribute('id');
+      }
+    });
+    navAs.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) {
+        a.classList.add('active');
+      }
+    });
+  });
+})();
+
+// ============================================
+// COUNTER ANIMATION
+// ============================================
+(function() {
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  let started = false;
+
+  function animateCounters() {
+    if (started) return;
+    const heroSection = document.getElementById('hero');
+    const rect = heroSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      started = true;
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000;
+        const startTime = performance.now();
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // easeOutExpo
+          const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+          counter.textContent = Math.floor(eased * target) + (target >= 100 ? '+' : '+');
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = target + '+';
+          }
+        }
+        requestAnimationFrame(update);
+      });
+    }
+  }
+
+  window.addEventListener('scroll', animateCounters);
+  animateCounters(); // Check on load too
+})();
+</script>
+
+</body>
+</html>
